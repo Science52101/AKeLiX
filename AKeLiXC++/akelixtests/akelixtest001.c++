@@ -24,19 +24,10 @@ int main()
   cout << a << endl;
   cout << a.size() << endl;
 
-  cout << b << endl;
-  cout << b.size() << endl;
+  a.erase(2);
 
-  cout << endl;
-
-  cout << (a+b) << endl;
-  cout << (a+b).size() << endl;
-  
-  cout << (a-b) << endl;
-  cout << (a-b).size() << endl;
-
-  cout << (b-a) << endl;
-  cout << (b-a).size() << endl;
+  cout << a << endl;
+  cout << a.size() << endl;
 
   return 0;
 }

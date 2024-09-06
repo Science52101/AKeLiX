@@ -1,6 +1,9 @@
 #ifndef AKEIOASX_H
 #define AKEIOASX_H
 
+#include <cstddef>
+#include <iostream>
+
 // AKeIOASX - Akai Keisanki Input and Output Array Stream eXperiments
 
 namespace akepox
@@ -12,7 +15,7 @@ class ioas
 protected:
 
   type* array;
-  int index;
+  size_t index;
 
 public:
 
@@ -24,7 +27,7 @@ public:
     this->array[index] = END;
   }
   
-  ioas(const type* array, const int& size)
+  ioas(const type* array, const size_t& size)
   {
     *this = ioas<type>::get();
     this->set(array, size);
@@ -36,7 +39,7 @@ public:
     this->set(begin, end);
   }
 
-  ioas(const int& size, const type& x = END)
+  ioas(const size_t& size, const type& x = END)
   {
     *this = ioas<type>::get();
     this->set(size, x);
@@ -45,14 +48,14 @@ public:
   ~ioas()
   { delete[] array; }
 
-  inline int get_index() const
+  inline size_t get_index() const
   { return index; }
 
-  void set_index(const int& nindex, type x = END)
+  void set_index(const size_t& nindex, const type& x = END)
   {
     type* narray = new type[nindex+1];
     
-    for (int i = 0; i < nindex; i++)
+    for (size_t i = 0; i < nindex; i++)
     {
       if (i < this->index) narray[i] = this->array[i];
       else narray[i] = x;
@@ -71,16 +74,19 @@ public:
   inline type* end() const
   { return array+index; }
 
-  inline int size() const
+  inline size_t size() const
   { return this->get_index(); }
 
-  void set(const type* array, const int& size)
+  inline void resize(const size_t& nsize = 0, const type& x = END)
+  { this->set_index(nsize, x); }
+
+  void set(const type* array, const size_t& size)
   {
     type* tmp = this->array;
     this->index = size;
     this->array = new type[this->index+1];
 
-    for (int i = 0; i < this->index; i++) this->array[i] = array[i];
+    for (size_t i = 0; i < this->index; i++) this->array[i] = array[i];
     this->array[this->index] = END;
     delete[] tmp;
   }
@@ -93,24 +99,24 @@ public:
       index++;
     this->array = new type[this->index+1];
 
-    for (int i = 0; i < index; i++)
+    for (size_t i = 0; i < index; i++)
       this->array[i] = begin[i];
     this->array[this->index] = END;
     delete[] tmp;
   }
 
-  void set(const int& size, const type& x = END)
+  void set(const size_t& size, const type& x = END)
   {
     type* tmp = this->array;
     this->index = size;
     this->array = new type[this->index+1];
 
-    for (int i = 0; i < this->index; i++) this->array[i] = x;
+    for (size_t i = 0; i < this->index; i++) this->array[i] = x;
     this->array[this->index] = END;
     delete[] tmp;
   }
 
-  type erase(const int& idx)
+  type erase(const size_t& idx)
   {
     type el;
 
@@ -120,7 +126,7 @@ public:
 
       type* narray = new type[--index+1];
       
-      for (int i = 0; i < index; i++)
+      for (size_t i = 0; i < index; i++)
       {
         if (i < idx) narray[i] = array[i];
 	else narray[i] = array[i+1];
@@ -144,14 +150,14 @@ public:
   inline type pop_back()
   { return this->erase(index-1); }
 
-  inline type pop(const int& idx = 0)
+  inline type pop(const size_t& idx = 0)
   { return this->erase(idx); }
 
-  void add(const int& idx, const type& el)
+  void add(const size_t& idx, const type& el)
   {
     type* narray = new type[++index+1];
     
-    for (int i = 0; i < index-1; i++)
+    for (size_t i = 0; i < index-1; i++)
     {
       if (i < idx) narray[i] = this->array[i];
       else narray[i+1] = this->array[i];
@@ -170,7 +176,10 @@ public:
   inline type push_back(const type& el = END)
   { return this->add(index-1, el); }
 
-  inline type push(const int& idx = 0, const type& el = END)
+  inline type push(const size_t& idx = 0, const type& el = END)
+  { return this->add(idx, el); }
+
+  inline type insert(const size_t& idx, const type& el = END)
   { return this->add(idx, el); }
 
   ioas& operator<<(const type& el)
@@ -178,7 +187,7 @@ public:
     this->array[index++] = el;
     type* narray = new type[index+1];
     
-    for (int i = 0; i < index; i++) narray[i] = this->array[i];
+    for (size_t i = 0; i < index; i++) narray[i] = this->array[i];
     narray[index] = END;
     
     type* tmp = array;
@@ -196,7 +205,7 @@ public:
 
       type* narray = new type[index+1];
       
-      for (int i = 0; i < index; i++) narray[i] = array[i];
+      for (size_t i = 0; i < index; i++) narray[i] = array[i];
       narray[index] = END;
       
       type* tmp = array;
@@ -214,7 +223,7 @@ public:
     type* narray = new type[++a.index+1];
     narray[0] = el;
     
-    for (int i = 1; i <= a.index; i++) narray[i] = a.array[i-1];
+    for (size_t i = 1; i <= a.index; i++) narray[i] = a.array[i-1];
     narray[a.index] = a.END;
     
     type* tmp = a.array;
@@ -232,7 +241,7 @@ public:
     {
       type* narray = new type[a.index--];
       
-      for (int i = 1; i <= a.index; i++) narray[i-1] = a.array[i];
+      for (size_t i = 1; i <= a.index; i++) narray[i-1] = a.array[i];
       narray[a.index] = a.END;
       
       type* tmp = a.array;
@@ -243,10 +252,10 @@ public:
     return a;
   }
 
-  inline virtual type& operator[](const int& i)
+  inline virtual type& operator[](const size_t& i)
   { return array[i]; }
 
-  inline virtual type* operator*(const int& i)
+  inline virtual type* operator*(const size_t& i)
   { return array+i; }
 
   friend ioas<type> operator+(const ioas<type>& a, const ioas<type>& b)
@@ -274,13 +283,13 @@ public:
 template<class type>
 type ioas<type>::END = type();
 
-#define loopioas(el, ioas_x) for(auto* el = ioas_x.begin(); el < ioas_x.end(); el++)
+#define loopioas(el, ioas_x) for(auto& el : ioas_x)
 
 template<class type>
 std::ostream& operator<<(std::ostream& os, const ioas<type>& a)
 {
   os << "[L]";
-  loopioas(el, a) os << " << " << *el;
+  loopioas(el, a) os << " << " << el;
   os << " << [R]";
   return os;
 }
@@ -290,7 +299,7 @@ template<class type>
 ioas<type> fioas (type (*f)(type), const ioas<type>& X)
 {
   ioas<type> Y;
-  loopioas(el, X) Y << f(*el);
+  loopioas(el, X) Y << f(el);
   return Y;
 }
 
