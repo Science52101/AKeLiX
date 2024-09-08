@@ -44,5 +44,5 @@ If the project satisfies any pourpose, the community will be able to participate
 
 The instalation process is unavailable, but the software can be experimented by cloning the repository with git: 
 ```
-git clone https://github.com/akai-keisanki/akelix.git
+git clone https://github.com/Science52101/AKeLiX.git
 ```
