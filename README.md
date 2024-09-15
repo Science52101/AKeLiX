@@ -7,6 +7,7 @@
 ```
 
 <h1 align="Center">
+<img src="https://raw.githubusercontent.com/Science52101/AKeLiX/All/akelix-logo.png" alt="AKeLiX" width="32" heigth="32"/>
 AKeLiX
 </h1>
 <h3 align="center">(Akai Keisanki Library eXperiments)</h3>
