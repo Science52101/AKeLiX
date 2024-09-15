@@ -1,13 +1,5 @@
-```
------ // ||  /||'''||   ||\   /'/
----- //| || / ||   ||   || \ | /
---- //_|_||/__||___||   ||  /@/
--- //  | ||\  ||   ||   || / | \
-- //   | || \ ||___||___||/_/   \
-```
-
 <h1 align="Center">
-<img src="https://raw.githubusercontent.com/Science52101/AKeLiX/All/akelix-logo.png" alt="AKeLiX" width="32" heigth="32"/>
+<img src="https://raw.githubusercontent.com/Science52101/AKeLiX/All/akelix-logo.png" alt="AKeLiX" width="128" heigth="128"/><br>
 AKeLiX
 </h1>
 <h3 align="center">(Akai Keisanki Library eXperiments)</h3>
