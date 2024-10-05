@@ -1,0 +1,114 @@
+
+
+NVIM v0.9.5
+Build type: Release
+LuaJIT 2.1.1703358377
+
+   system vimrc file: "$VIM/sysinit.vim"
+  fall-back for $VIM: "/usr/share/nvim"
+
+Run :checkhealth for more info1969-12-31 22:17:37.702895: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:17:37.703339: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:17:37.703558: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:17:37.704160: Unsupported filetype: conf
+1969-12-31 22:17:37.704473: Not a valid file, stopping processing
+1969-12-31 22:18:07.847317: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:18:07.847516: In Tagbar window, stopping processing
+1969-12-31 22:18:26.478356: goto_win(): wincmd p, 1
+1969-12-31 22:18:26.478806: goto_win(): 3wincmd w, 1
+1969-12-31 22:18:26.482762: goto_win(): 2wincmd w, 1
+1969-12-31 22:18:26.483247: goto_win(): 4wincmd w, 1
+1969-12-31 22:18:26.499682: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/]
+1969-12-31 22:18:26.499819: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:18:26.499897: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/]
+1969-12-31 22:18:26.500012: File not readable
+1969-12-31 22:18:26.500089: Not a valid file, stopping processing
+1969-12-31 22:18:36.920827: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/]
+1969-12-31 22:18:36.921734: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:18:36.922179: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/]
+1969-12-31 22:18:36.922474: File not readable
+1969-12-31 22:18:36.922682: Not a valid file, stopping processing
+1969-12-31 22:18:39.933035: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:18:39.933407: In Tagbar window, stopping processing
+1969-12-31 22:18:41.616040: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:18:41.616376: Vim filetype: 'nerdtree', sanitized filetype: 'nerdtree'
+1969-12-31 22:18:41.616502: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:18:41.616753: File not readable
+1969-12-31 22:18:41.616916: Not a valid file, stopping processing
+1969-12-31 22:18:42.455576: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:42.455835: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:18:42.456040: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:42.456300: Unsupported filetype: conf
+1969-12-31 22:18:42.456436: Not a valid file, stopping processing
+1969-12-31 22:18:45.743492: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:18:45.743635: In Tagbar window, stopping processing
+1969-12-31 22:18:47.158979: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:47.159106: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:18:47.159170: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:47.159274: Unsupported filetype: conf
+1969-12-31 22:18:47.159334: Not a valid file, stopping processing
+1969-12-31 22:18:50.138337: ToggleWindow called
+1969-12-31 22:18:50.138802: OpenWindow called with flags: ''
+1969-12-31 22:18:50.138982: goto_win(): wincmd p, 1
+1969-12-31 22:18:50.139094: goto_win(): wincmd p, 1
+1969-12-31 22:18:50.144970: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:18:50.145167: Still opening window, stopping processing
+1969-12-31 22:18:50.150959: InitWindow called with autoclose: 0
+1969-12-31 22:18:50.152071: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:18:50.152194: In Tagbar window, stopping processing
+1969-12-31 22:18:50.153521: InitWindow finished
+1969-12-31 22:18:50.153599: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:50.153675: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:18:50.153732: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:50.153829: Unsupported filetype: conf
+1969-12-31 22:18:50.153884: Not a valid file, stopping processing
+1969-12-31 22:18:50.163997: OpenWindow finished
+1969-12-31 22:18:50.164079: ToggleWindow finished
+1969-12-31 22:18:52.145851: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:18:52.146026: In Tagbar window, stopping processing
+1969-12-31 22:18:54.348156: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:18:54.348542: Vim filetype: 'nerdtree', sanitized filetype: 'nerdtree'
+1969-12-31 22:18:54.348684: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:18:54.348925: File not readable
+1969-12-31 22:18:54.349179: Not a valid file, stopping processing
+1969-12-31 22:18:55.024674: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:55.024789: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:18:55.024849: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:18:55.024945: Unsupported filetype: conf
+1969-12-31 22:18:55.025005: Not a valid file, stopping processing
+1969-12-31 22:19:08.242589: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:19:08.242768: In Tagbar window, stopping processing
+1969-12-31 22:19:08.970416: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:19:08.970679: Vim filetype: 'nerdtree', sanitized filetype: 'nerdtree'
+1969-12-31 22:19:08.970807: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:19:08.971052: File not readable
+1969-12-31 22:19:08.971175: Not a valid file, stopping processing
+1969-12-31 22:19:09.694013: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:19:09.694214: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:19:09.694324: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:19:09.694501: Unsupported filetype: conf
+1969-12-31 22:19:09.694605: Not a valid file, stopping processing
+1969-12-31 22:19:24.288163: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:19:24.288892: Vim filetype: 'conf', sanitized filetype: 'conf'
+1969-12-31 22:19:24.289203: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/akepox/akeioasx.h++]
+1969-12-31 22:19:24.289579: Unsupported filetype: conf
+1969-12-31 22:19:24.289785: Not a valid file, stopping processing
+1969-12-31 22:19:36.940167: netrw only window remaining
+1969-12-31 22:19:36.940639: Closing Tagbar due to QuitPre - netrw only remaining window
+1969-12-31 22:19:36.940878: CloseWindow called
+1969-12-31 22:19:36.941236: goto_win(): 2wincmd w, 0
+1969-12-31 22:19:36.946626: netrw only window remaining
+1969-12-31 22:19:36.947868: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/__Tagbar__.1]
+1969-12-31 22:19:36.947968: In Tagbar window, stopping processing
+1969-12-31 22:19:36.951072: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:19:36.951180: Vim filetype: 'nerdtree', sanitized filetype: 'nerdtree'
+1969-12-31 22:19:36.951268: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:19:36.951371: File not readable
+1969-12-31 22:19:36.951426: Not a valid file, stopping processing
+1969-12-31 22:19:36.951498: goto_win(): 1wincmd w, 0
+1969-12-31 22:19:36.951568: CloseWindow finished
+1969-12-31 22:19:36.951809: AutoUpdate called [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:19:36.951903: Vim filetype: 'nerdtree', sanitized filetype: 'nerdtree'
+1969-12-31 22:19:36.951958: Checking if file is valid [/home/admin/Documents/ddisk/ab/science/git/AKeLiX/AKeLiXC++/NERD_tree_win_1]
+1969-12-31 22:19:36.952061: File not readable
+1969-12-31 22:19:36.952111: Not a valid file, stopping processing
