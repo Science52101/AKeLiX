@@ -1,5 +1,13 @@
+#ifndef AKEMAX_VEX
+#define AKEMAX_VEX
+
+#define relforif(start, cond, loop, c2, el, rel) for (start, cond, loop) if (c2) el = rel
+
 namespace vex
 {
+  template <class T, unsigned long N, unsigned long M>
+  using vex = T[N][M];
+
   template <class T, unsigned long N, unsigned long M, unsigned long L>
   void matMul(T (&r)[M][N], const T (&a)[L][N], const T (&b)[M][L])
   {
@@ -82,20 +90,24 @@ namespace vex
     return;
   }
 
-  template <class T, unsigned long N, unsigned long M>
-  void toStream(std::ostream& os, const T (&a)[N][M], const bool& linAlgLike = true)
+  template <class T, unsigned long N, unsigned long M, class T2 = char, class T3 = char>
+  void toStream(const T (&a)[N][M], std::ostream& os, const bool& linAlgLike = true, const T2& elend = '\t', const T3& lnend = '\n')
   {
     /*
     Put a matrix's content in a stream.
 
     Parameters
     ----------
+    a : const T (&)[N][M]
+      The matrix whose content is read.
     os : std::ostream&
       The output stream which will receive content.
-    a : const T (*)[N][M]
-      The matrix whose content is read.
     linAlgLike : const bool&, optional, default = true
       Tell when to write lines and columns like mathematical or programming notation.
+    elend : const T2&, optional, default = '\t'
+      Tell which value is writen after every element.
+    lnend : const T3&, optional, default = '\n'
+      Tell which value is writen after every line.
 
     Returns
     -------
@@ -106,24 +118,24 @@ namespace vex
     for (unsigned long i = 0; i < M; i++)
     {
       for (unsigned long j = 0; j < N; j++)
-        os << ((linAlgLike) ? a[j][i] : a[i][j]);
-      os << '\n';
+        os << ((linAlgLike) ? a[j][i] : a[i][j]) << elend;
+      if (i < M-1) os << lnend;
     }
     return;
   }
 
   template <class T, unsigned long N, unsigned long M>
-  void fromStream(std::istream& is, T (&a)[N][M], const bool& linAlgLike = true)
+  void fromStream(T (&a)[N][M], std::istream& is, const bool& linAlgLike = true)
   {
     /*
     Get content from a stream to a matrix.
 
     Parameters
     ----------
-    os : std::istream&
-      The input stream whose content is read.
-    a : T (*)[N][M]
+    a : T (&)[N][M]
       The matrix which will receive content.
+    is : std::istream&
+      The input stream whose content is read.
     linAlgLike : const bool&, optional, default = true
       Tell when to read lines and columns like mathematical or programming notation.
 
@@ -138,4 +150,58 @@ namespace vex
         is >> ((linAlgLike) ? a[j][i] : a[i][j]);
     return;
   }
+
+  template <class T, unsigned long N, unsigned long M>
+  void fromFunction(T (&a)[N][M], const T (*f)(const unsigned long& i, const unsigned long& j))
+  {
+    /*
+    Get content from a function of indexes to a matrix.
+
+    Parameters
+    ----------
+    a : T (&)[N][M]
+      The matrix which will receive content.
+    f: const T (*)(const unsigned long& i, const unsigned long& j)
+      The function whose returning content is read.
+
+    Returns
+    -------
+    void
+      The returning content of the function is put in the matrix.
+    */
+
+    for (unsigned long i = 0; i < N; i++)
+      for (unsigned long j = 0; j < M; j++)
+        a[i][j] = f(i, j);
+    return;
+  }
+
+  template <class T, class T2, unsigned long N, unsigned long M>
+  void fromFunction(T (&a)[N][M], const T (*f)(const T2& x), const T2 (&b)[N][M])
+  {
+    /*
+    Get content from a function of a matrix to a matrix.
+
+    Parameters
+    ----------
+    a : T (&)[N][M]
+      The matrix which will receive content.
+    f: const T (*)(const T2& x)
+      The function whose returning content is read.
+    b : const T2 (&)[N][M]
+      The matrix whose content is read.
+
+    Returns
+    -------
+    void
+      The returning content of the function is put in the matrix.
+    */
+
+    for (unsigned long i = 0; i < N; i++)
+      for (unsigned long j = 0; j < M; j++)
+        a[i][j] = f(b[i][j]);
+    return;
+  }
 }
+
+#endif

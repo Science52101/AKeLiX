@@ -1,17 +1,20 @@
 #include <iostream>
 
-#include "akemax/akevex.h++"
+#include "akedex/aketyx.h++"
 
 signed main()
 {
-  signed a[2][2]; vex::fromStream(std::cin, a);
-  signed b[1][2]; vex::fromStream(std::cin, b);
+  erx::Secure<int> s(256);
 
-  signed c[1][2];
+  tyx::SecPtr<int> p = tyx::some(s);
 
-  vex::matMul(c, a, b); // c = ab = {{7, 4}}
+  std::cout << *p << '\n'; // 256
 
-  vex::toStream(std::cout, c);
+  tyx::SecPtr<int> p2 = tyx::some<int>(128);
+
+  std::cout << *p2 << '\n'; // 128
 
   return 0;
 }
+
+
