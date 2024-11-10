@@ -5,6 +5,8 @@
 
 namespace vex
 {
+  /* AKeMaX - VeX -- Akai Keisanki Mathematic eXperiments - Vector eXperiments */
+
   template <class T, unsigned long N, unsigned long M>
   using vex = T[N][M];
 

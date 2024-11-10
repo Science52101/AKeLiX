@@ -8,7 +8,15 @@ namespace tyx
 {
   struct nulltype
   {
-    erx::Error err = erx::NULL_ERR;
+    /*
+    Null type that contains explanative error.
+
+    Attributes
+    ----------
+    err : erx::Error, default = erx::KErr::NULL_ERR;
+    */
+
+    erx::Error err = erx::KErr::NULL_ERR;
   };
 
 
@@ -16,50 +24,184 @@ namespace tyx
   class SecPtr
   : public erx::Secure<t>
   {
+    /*
+    Secure pointer class to wrap a pointer with error handling and encapsulation.
+
+    Attributes
+    ----------
+    dt : t*, private
+      The wrapped pointer.
+    err : erx::Error, protected
+      An error for when the object should not be used or isn't available.
+    autalc : bool, protected
+      True if value should be automatically deleted.
+    bc : size_t, protected
+      Byte ammount that is safe to access from the pointed position. (WIP)
+    */
+
   private:
 
     t* dt;
 
   protected:
 
-    bool   isalc; 
-    size_t bc   ; // WIP
+    bool   autalc;
+    size_t bc    ; // WIP
 
   public:
     
     SecPtr ()
-    { this->set(erx::NODATA_ERR); }
+    {
+      /*
+      Secure pointer with no data constructor.
+
+      Parameters
+      ----------
+
+      Returns
+      -------
+      SecPtr<t>
+      */
+
+      this->set(erx::KErr::NODATA_ERR);
+    }
 
     SecPtr(const erx::Error& error)
-    { this->set(error); }
+    {
+      /*
+      Secure pointer with error constructor.
 
-    SecPtr(t* value, const bool& isalc, const size_t& bytc = sizeof(t))
-    { this->set(value, isalc, bytc); }
+      Parameters
+      ----------
+      error : const erx::Error&
+        An error which makes the content unavailable.
+
+      Returns
+      -------
+      SecPtr<t>
+      */
+
+      this->set(error);
+    }
+
+    SecPtr(t* value, const bool& autalc = false, const size_t& bytc = sizeof(t))
+    {
+      /*
+      Secure object with wrapped pointer constructor.
+
+      Parameters
+      ----------
+      value : t*
+        A pointer to wrap.
+      autalc : const bool&, optional, default = false
+        True if value should be automatically deleted.
+      bytc : const size_t&, optional, default = sizeof(t)
+        Byte ammount that is safe to access from the pointed position. (WIP)
+
+      Returns
+      -------
+      SecPtr<t>
+      */
+      this->set(value, autalc, bytc);
+    }
 
     SecPtr(t& value, const size_t& bytc = sizeof(t))
-    { this->set(&value, false, bytc); }
+    {
+      /*
+      Secure pointer with wrapped pointer to object constructor.
+
+      Parameters
+      ----------
+      value : t&
+        An object/value to point and wrap.
+      bytc : const size_t&, optional, default = sizeof(t)
+        Byte ammount that is safe to access from the pointed position. (WIP)
+
+      Returns
+      -------
+      SecPtr<t>
+      */
+
+      this->set(&value, false, bytc);
+    }
 
     
     ~SecPtr()
-    { if (this->isalc) delete dt; }
+    {
+      /*
+      Secure pointer destructor for deleting `dt` if `autalc`.
+      */
+
+      if (this->autalc) delete dt;
+    }
 
     
     virtual void set(const erx::Error& error) override
-    { this->err = error; }
-
-    virtual void set(t* value, const bool& isalc, const size_t& bytc = sizeof(t))
     {
-      if (!(bytc > 0)) throw erx::OUTOFRANGE_ERR;
+      /*
+      Error setter.
 
-      this->dt    = value     ;
-      this->isalc = isalc     ;
-      this->bc    = bytc      ;
-      this->err   = {false, 0};
+      Parameters
+      ----------
+      error : const erx::Error&
+        An error which makes the pointer unavailable.
+
+      Returns
+      -------
+      void
+      */
+
+      this->err = error;
+    }
+
+    virtual void set(t* value, const bool& autalc = false, const size_t& bytc = sizeof(t))
+    {
+      /*
+      Pointer wrapper/setter.
+
+      Parameters
+      ----------
+      value : t*
+        A pointer to wrap.
+      autalc : const bool&, optional, default = false
+        True if value should be automatically deleted.
+      bytc : const size_t&, optional, default = sizeof(t)
+        Byte ammount that is safe to access from the pointed position. (WIP)
+
+      Returns
+      -------
+      void
+      */
+      
+
+      if (!(bytc > 0)) throw erx::KErr::OUTOFRANGE_ERR;
+
+      this->dt     = value     ;
+      this->autalc = autalc    ;
+      this->bc     = bytc      ;
+      this->err    = {false, 0};
     }
 
 
     virtual t& unpack() override
     {
+      /*
+      Pointer dereferencer / pointed object/value unwrapper/unpacker.
+
+      Parameters
+      ----------
+
+      Returns
+      -------
+      this->dt : t&
+        The object/value/data pointed by the wrapped pointer.
+
+      Raises
+      ------
+      this->err : erx::Error
+        An error for when the pointer should not be used or isn't available.
+      */
+
       if (this->exists()) return *this->dt;
       else throw this->err;
     }
@@ -67,17 +209,72 @@ namespace tyx
 
     virtual t* unveil()
     {
+      /*
+      Pointer unwrapper/unpacker.
+
+      Parameters
+      ----------
+
+      Returns
+      -------
+      this->dt : t*
+        The wrapped pointer.
+
+      Raises
+      ------
+      this->err : erx::Error
+        An error for when the pointer should not be used or isn't available.
+      */
+
       if (this->exists()) return this->dt;
       else throw this->err;
     }
 
     
     virtual t& operator*() override
-    { return this->unpack(); }
+    {
+      /*
+      Operator `*` for dereferencing the value pointed by the wrapped pointer, similar to typical pointer dereferencing.
+
+      Parameters
+      ----------
+
+      Returns
+      -------
+      dt : t&
+        The object/value/data pointed by the wrapped pointer.
+
+      Raises
+      ------
+      this->err : erx::Error
+        An error for when the object should not be used or isn't available.
+      */
+
+      return this->unpack();
+    }
 
 
     virtual t* operator&()
-    { return this->unveil(); }
+    {
+      /*
+      Operator `&` for unwrapping/unpacking the wrapped pointer, similar to referencig.
+
+      Parameters
+      ----------
+
+      Returns
+      -------
+      t*
+        The wrapped pointer.
+
+      Raises
+      ------
+      this->err : erx::Error
+        An error for when the object should not be used or isn't available.
+      */
+
+      return this->unveil();
+    }
   };
 
 
@@ -86,8 +283,8 @@ namespace tyx
 
 
   template<class T>
-  SecPtr<T> some(T* value, const bool& isalc, const size_t& bytc = sizeof(T))
-  { return SecPtr<T>(value, isalc, bytc); }
+  SecPtr<T> some(T* value, const bool& autalc, const size_t& bytc = sizeof(T))
+  { return SecPtr<T>(value, autalc, bytc); }
 
   template<class T>
   SecPtr<T> some(T& value, const size_t& bytc = sizeof(T))
