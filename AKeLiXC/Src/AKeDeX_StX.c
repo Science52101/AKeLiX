@@ -6,7 +6,7 @@
 
 struct Coord
 {
-  double*        coords;
+  double   *     coords;
   unsigned long  dimsns;
 };
 
