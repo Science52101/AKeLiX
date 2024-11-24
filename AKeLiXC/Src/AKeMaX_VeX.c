@@ -40,16 +40,12 @@ void stMatrix (Matrix* this, double** arrs, unsigned long n, unsigned long m)
 {
   if (!arrs || n == 0 || m == 0) return;
 
-  double* tmp = this->els;
-
-  this->els = (double*)malloc(sizeof(double)*n*m);
+  this->els = (double*)realloc(this->els, sizeof(double)*n*m);
 
   if (!this->els) return;
 
   this->n = n;
   this->m = m;
-
-  free(tmp);
 
   for (unsigned long i = 0; i < this->n; i ++)
     memcpy(this->els + (i * this->m), arrs[i], sizeof(double)*this->m);
