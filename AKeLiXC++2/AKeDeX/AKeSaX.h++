@@ -102,14 +102,17 @@ namespace sax
       if (avl) delete[] ptr;
     }
 
-    size_t getSiz ()
+    size_t getSiz () const
     {
       /* Size (`siz`) Getter */
 
       return siz;
     }
 
-    Err getErr ()
+    size_t size () const
+    { return getSiz(); }
+
+    Err getErr () const
     {
       /* Error (`err`) Getter */
       
@@ -118,12 +121,15 @@ namespace sax
       return err;
     }
 
-    bool chk ()
+    bool chk () const
     {
       /* Availability (`avl`) Getter */
       
       return avl;
     }
+
+    size_t check () const
+    { return chk(); }
     
     void del ()
     {
@@ -150,9 +156,20 @@ namespace sax
       return ptr[i];
     }
 
-    void from (const Ptr& r)
+    T& operator * ()
+    { return get(); }
+
+    T& operator [] (const size_t& i)
+    { return get(i); }
+
+    void operator & ()
+    { /* Unimplemented */ }
+
+    void frm (const Ptr& r)
     {
       /* Deep Copy Function */
+
+      if (&r == this) return;
 
       del();
 
@@ -168,9 +185,11 @@ namespace sax
         err = r.err;
     }
 
-    void from (Ptr&& r)
+    void frm (Ptr&& r)
     {
       /* Move Function */
+
+      if (&r == this) return;
 
       del();
 
@@ -191,7 +210,7 @@ namespace sax
     }
 
     void operator = (Ptr<T>& r)
-    { from(std::move(r)); }
+    { frm(std::move(r)); }
 
     class Iterator
     {
@@ -222,29 +241,31 @@ namespace sax
       Iterator operator ++ ()
       {
         if (pos >= spt->siz) throw std::out_of_range("++() - Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-        Iterator it = *this;
         pos ++;
+        return *this;
       }
 
       Iterator operator ++ (int)
       {
         if (pos >= spt->siz) throw std::out_of_range("++(int) - Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
+        Iterator it = *this;
         pos ++;
-        return *this;
+        return it;
       }
 
       Iterator operator -- ()
       {
         if (pos == 0) throw std::out_of_range("--() -Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-        Iterator it = *this;
-        pos ++;
+        pos --;
+        return *this;
       }
 
       Iterator operator -- (int)
       {
         if (pos == 0) throw std::out_of_range("--(int) - Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
+        Iterator it = *this;
         pos --;
-        return *this;
+        return it;
       }
 
       T operator * ()
