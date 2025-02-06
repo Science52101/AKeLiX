@@ -150,6 +150,49 @@ namespace sax
       return ptr[i];
     }
 
+    void from (const Ptr& r)
+    {
+      /* Deep Copy Function */
+
+      del();
+
+      avl = r.avl;
+      siz = r.siz;
+
+      if (avl)
+      {
+        ptr = new T[siz];
+        std::copy(r.ptr, r.ptr + r.siz, ptr);
+      }
+      else
+        err = r.err;
+    }
+
+    void from (Ptr&& r)
+    {
+      /* Move Function */
+
+      del();
+
+      avl = r.avl;
+      siz = r.siz;
+
+      if (avl)
+      {
+        ptr = r.ptr;
+        r.ptr = nullptr;
+      }
+      else
+        err = r.err;
+
+      r.avl = false;
+      r.siz = 0    ;
+      r.err = {255};
+    }
+
+    void operator = (Ptr<T>& r)
+    { from(std::move(r)); }
+
     class Iterator
     {
       /* Safe Pointer Iterator Class */
