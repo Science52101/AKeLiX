@@ -5,17 +5,13 @@
 
 signed main()
 {
-  double** tmp0 = (double**)malloc(sizeof(double*)*2);
-  
   tmp0[0] = (double*)malloc(sizeof(double)*2);
   tmp0[1] = (double*)malloc(sizeof(double)*2);
 
   tmp0[0][0] = 1; tmp0[1][0] = 0;
-  tmp0[0][1] = 0; tmp0[1][1] = 1;
+  tmp0[0][1] = 0; tm
 
-  Matrix* basis = mkMatrix(tmp0, 2, 2);
-
-  printf("declared `basis` as   `Matrix *` with `mkMatrix` .\n");
+  Matrix* basis = mkMatrix(tm
 
   free(tmp0[0]); free(tmp0[1]);
   free(tmp0   );
