@@ -15,6 +15,49 @@ namespace sax
   };
 
   template <class T>
+  class Wrapper
+  {
+    /* Wrapper Class */
+  
+  private:
+    T obj;
+  
+  public:
+    Wrapper()
+    : obj()
+    {
+      /* Empty Constructor */
+    }
+
+    Wrapper(const T& obj)
+    : obj(obj)
+    {
+      /* Wrapper Constructor */
+    }
+
+    virtual T get()
+    {
+      /* Wrapped Element Getter */
+
+      return obj;
+    }
+
+    virtual T set(const T& obj)
+    {
+      /* Wrapped Element Setter */
+
+      this->obj = obj;
+    }
+
+    virtual T& operator * ()
+    {
+      /* Wrapped Element Reference Getter */
+
+      return obj;
+    }
+  }
+
+  template <class T>
   class Ptr
   {
     /* Safe Pointer Class */
