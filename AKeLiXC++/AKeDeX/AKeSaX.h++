@@ -7,8 +7,12 @@
 #include <cstddef>
 #include <utility>
 
+namespace akelix
+{
+
 namespace sax
 {
+
   struct Err
   {
     unsigned short code;
@@ -55,7 +59,7 @@ namespace sax
 
       return obj;
     }
-  }
+  };
 
   template <class T>
   class Ptr
@@ -345,6 +349,9 @@ namespace sax
 
     friend class Ptr<T>::Iterator;
   };
+
+}
+
 }
 
 #endif

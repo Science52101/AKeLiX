@@ -7,12 +7,45 @@
 #include <utility>
 #include <iterator>
 
-namespace alx
+namespace akelix
 {
 
+namespace alx
+{
+  #define repeat (n) for (size_t __alx_idx = 0; __alx_idx < n; __alx_idx ++)
+
   template <class T>
-  void sortedMerge (const size_t& n, T begin, T middle, T end)
+  void minMax(T& x, T& y)
   {
+    if (x <= y) return;
+
+    x ^= y;
+    y ^= x;
+    x ^= y;
+
+    return;
+  }
+
+  template <class T>
+  void bubbleSort(T begin, T end, const size_t& n = std::distance(begin, end))
+  {
+    T it;
+
+    repeat (n - 1)
+    {
+      it = begin;
+      repeat (n - 1)
+        minMax(*it, *++it);
+    }
+
+    return;
+  }
+
+  template <class T>
+  void sortedMerge (T begin, T middle, T end, const size_t& n = std::distance(begin, end))
+  {
+    if (n <= 1) return;
+
     using U = typename std::remove_reference<decltype(*begin)>::type;
 
     size_t ln = n / 2;
@@ -45,13 +78,12 @@ namespace alx
   }
 
   template <class T>
-  void mergeSort (T begin, T end)
+  void mergeSort (T begin, T end, const size_t& n = std::distance(begin, end))
   {
-    size_t n = std::distance(begin, end);
     if (n <= 1) return;
 
-    size_t ln = n / 2;
-    size_t rn = n - ln;
+    const size_t ln = n / 2;
+    const size_t rn = n - ln;
 
     T middle = std::next(begin, ln);
 
@@ -62,6 +94,8 @@ namespace alx
 
     return;
   }
+
+}
 
 }
 
