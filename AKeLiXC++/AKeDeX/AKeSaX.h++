@@ -257,99 +257,137 @@ namespace sax
     }
 
     void operator = (Ptr<T>& r)
-    { frm(std::move(r)); }
+    { frm(std::move(r)); } 
 
-    class Iterator
-    {
-      /* Safe Pointer Iterator Class */
+    class Iterator;
 
-    private:
-      size_t pos;
-      Ptr<T>* spt;
-
-    public:
-      Iterator (const size_t& pos, Ptr<T>* spt)
-      {
-        if (!spt->avl)     throw std::logic_error ("Pointer is not available. Use Ptr<T>::getErr() to get its error.");
-        if (pos > spt->siz) throw std::out_of_range("Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-
-        this->pos = pos;
-        this->spt = spt;
-      }
-
-      Iterator (const Iterator& r)
-      {
-        pos = r.pos;
-        spt = r.spt;
-      }
-
-      ~Iterator () {}
-
-      Iterator operator ++ ()
-      {
-        if (pos >= spt->siz) throw std::out_of_range("++() - Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-        pos ++;
-        return *this;
-      }
-
-      Iterator operator ++ (int)
-      {
-        if (pos >= spt->siz) throw std::out_of_range("++(int) - Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-        Iterator it = *this;
-        pos ++;
-        return it;
-      }
-
-      Iterator operator -- ()
-      {
-        if (pos == 0) throw std::out_of_range("--() -Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-        pos --;
-        return *this;
-      }
-
-      Iterator operator -- (int)
-      {
-        if (pos == 0) throw std::out_of_range("--(int) - Iterator index of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
-        Iterator it = *this;
-        pos --;
-        return it;
-      }
-
-      T operator * ()
-      { return spt->get(pos); }
-
-      bool operator < (Iterator r)
-      { return pos < r.pos; }
-
-      bool operator > (Iterator r)
-      { return pos > r.pos; }
-
-      bool operator == (Iterator r)
-      { return pos == r.pos; }
-
-      bool operator != (Iterator r)
-      { return pos != r.pos; }
-
-      friend class Ptr<T>;
-    };
-
-    Iterator begin()
+    Iterator begin ()
     {
       /* Initial Safe Pointer Iterator Getter */
 
-      return Iterator(0, this);
+      return Iterator(0, 0, siz, this);
     }
 
-    Iterator end()
+    Iterator end ()
     {
-      /* Ending Safe Pointer Iterator Getter */
+      /* ending safe pointer iterator getter */
       
-      return Iterator(siz, this);
+      return Iterator(siz, 0, siz, this);
+    }
+
+    Iterator range (const size_t& begin, const size_t& end)
+    {
+      /* Initial Safe Pointer Iterator Getter */
+
+      return Iterator(begin, begin, end, this);
     }
 
     friend class Ptr<T>::Iterator;
   };
 
+  template <class T>
+  class Ptr<T>::Iterator
+  {
+    /* Safe Pointer Iterator Class */
+
+  private:
+    size_t begin;
+    size_t end;
+    size_t pos;
+    Ptr<T>* spt;
+
+  public:
+    Iterator (const size_t& pos, const size_t& begin, const size_t& end, Ptr<T>* spt)
+    {
+      if (!spt->avl)     throw std::logic_error ("Pointer is not available. Use Ptr<T>::getErr() to get its error.");
+      if (begin > end || end > spt->siz || end > spt->siz + 1) throw std::out_of_range("Iterator range of pointer is out of range of allocation. Use Ptr<T>::getSiz to get its size.");
+      if (pos < begin || pos > end) throw std::out_of_range("*() - Iterator index of pointer is out of range.");
+
+      this->begin = begin;
+      this->end = end;
+      this->pos = pos;
+      this->spt = spt;
+    }
+
+    Iterator (const Iterator& r)
+    {
+      begin = r.begin;
+      end = r.end;
+      pos = r.pos;
+      spt = r.spt;
+    }
+
+    ~Iterator () {}
+
+    Iterator operator ++ ()
+    {
+      if (pos == end) throw std::out_of_range("++() - Iterator index of pointer is out of range. Use Ptr<T>::Iterator::getBeg() to get its begin or Ptr<T>::Iterator::getEnd() to get its end.");
+      pos ++;
+      return *this;
+    }
+
+    Iterator operator ++ (int)
+    {
+      if (pos == end) throw std::out_of_range("++(int) - Iterator index of pointer is out of range. Use Ptr<T>::Iterator::getBeg() to get its begin or Ptr<T>::Iterator::getEnd() to get its end.");
+      Iterator it = *this;
+      pos ++;
+      return it;
+    }
+
+    Iterator operator -- ()
+    {
+      if (pos == begin) throw std::out_of_range("--() -Iterator index of pointer is out of range. Use Ptr<T>::Iterator::getBeg() to get its begin or Ptr<T>::Iterator::getEnd() to get its end.");
+      pos --;
+      return *this;
+    }
+
+    Iterator operator -- (int)
+    {
+      if (pos == begin) throw std::out_of_range("--(int) - Iterator index of pointer is out of range. Use Ptr<T>::Iterator::getBeg() to get its begin or Ptr<T>::Iterator::getEnd() to get its end.");
+      Iterator it = *this;
+      pos --;
+      return it;
+    }
+
+    T& operator * ()
+    {
+      if (pos < begin || pos > end) throw std::out_of_range("*() - Iterator index of pointer is out of range. Use Ptr<T>::Iterator::getBeg() to get its begin or Ptr<T>::Iterator::getEnd() to get its end.");
+      if (pos == end) throw std::out_of_range("*() - Iterator index of pointer is end of range. Use Ptr<T>::Iterator::getEnd() to get its end.");
+      return spt->get(pos);
+    }
+
+    Iterator operator + (const size_t& i)
+    { return Iterator(pos + i, begin, end, spt); }
+
+    Iterator operator - (const size_t& i)
+    { return Iterator(pos - i, begin, end, spt); }
+
+    T& operator [] (const size_t& i)
+    { return *(*this + i); }
+
+    bool operator < (Iterator r)
+    { return pos < r.pos; }
+
+    bool operator > (Iterator r)
+    { return pos > r.pos; }
+
+    bool operator == (Iterator r)
+    { return pos == r.pos; }
+
+    bool operator != (Iterator r)
+    { return pos != r.pos; }
+
+    Iterator getBeg ()
+    { return Iterator(begin, begin, end, spt); }
+
+    Iterator getEnd ()
+    { return Iterator(end, begin, end, spt); }
+
+    size_t getPos ()
+    { return pos; }
+
+    friend class Ptr<T>;
+  };
 }
 
 }
