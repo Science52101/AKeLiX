@@ -3,6 +3,8 @@
 
 // Akai Keisanki Definition eXperiments - Safe eXperiments
 
+// DEPRECATED - Will be moved to `AKeSaX_Old.hh`
+
 #include <stdexcept>
 #include <cstddef>
 #include <utility>
