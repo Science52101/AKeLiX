@@ -3,8 +3,9 @@
 
 // Akai Keisanki Algorithm eXperiments - Graph eXperiments
 
-#include <vector>
 #include <algorithm>
+#include <vector>
+#include <queue>
 
 namespace akelix
 {
@@ -82,6 +83,26 @@ namespace grx
       for (unsigned long p : parent)
         parent[p] = find(p);
     }
+  }
+
+  std::vector<size_t> bfs (const std::vector<std::vector<size_t>>& v, const size_t& root = 0)
+  {
+    std::vector<size_t> tree (v.size());
+    std::queue<size_t> q;
+
+    q.push(root);
+
+    while (!q.empty())
+    {
+      for (size_t& vi : v[q.top()])
+      {
+        if (tree.find())
+        q.push(vi);
+      }
+      q.pop();
+    }
+
+    return tree;
   }
 
 }
