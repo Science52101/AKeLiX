@@ -1,9 +1,7 @@
 #ifndef AKEDEX_WRAX
 #define AKEDEX_WRAX
 
-// Akai Keisanki Definition eXperiments - Wrapper eXperiments
-
-// WARNING - Will be moved to `AKeSaX.hh`
+// Akai Keisanki Definition eXperiments - Safe eXperiments
 
 #include <cstdint>
 
@@ -13,7 +11,7 @@
 namespace akelix
 {
 
-namespace wrax
+namespace sax
 {
   // Declarations
 
@@ -26,7 +24,11 @@ namespace wrax
   template <class T>
   class Borrow;
 
-  void drop (IWrapper&);
+  template <class T>
+  void drop (T&);
+
+  template <class T>
+  T clone (T&);
 
   template <class T>
   struct IsWrapper;
@@ -180,10 +182,7 @@ namespace wrax
 
       Wrapper w;
 
-      if constexpr (IsWrapper<decltype(*obj)>::value)
-        *w.obj = obj->clone();
-      else
-        *w.obj = *obj;
+      *w.obj = sax::clone(*obj);
 
       w.state = state;
 
@@ -416,10 +415,29 @@ namespace wrax
   struct IsWrapper<Borrow<T>> : std::true_type {};
 
 
-  void drop (IWrapper& w)
+  template <class T>
+  void drop (T& v)
   {
-    w.drop();
+      if constexpr (IsWrapper<T>::value)
+        v.drop();
   }
+
+  template <class T>
+  T clone (T& v)
+  {
+    if constexpr (IsWrapper<T>::value)
+      return v.clone();
+
+    return v;
+  }
+
+  // User Aliases
+  
+  template <class T>
+  using wra = Wrapper<T>;
+
+  template <class T>
+  using bor = Borrow<T>;
 
 }
 
