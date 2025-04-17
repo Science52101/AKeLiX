@@ -192,7 +192,7 @@ namespace sax
 
     virtual void drop (void) override
     {
-      if (state >> 4 == 2) return;
+      if (state >> 4 == 2 || state == 0x10) return;
       if (!ok()) throw state;
 
       if (ok()) delete obj;
@@ -375,7 +375,7 @@ namespace sax
 
     void drop (void) override
     {
-      if (Wrapper<T>::state >> 4 == 2) return;
+      if (Wrapper<T>::state >> 4 == 2 || Wrapper<T>::state == 0x10) return;
       if (!Wrapper<T>::ok()) throw Wrapper<T>::state;
 
       w->obj = Wrapper<T>::obj;
