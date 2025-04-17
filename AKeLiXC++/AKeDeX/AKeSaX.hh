@@ -127,7 +127,7 @@ namespace sax
 
     ~Wrapper (void)
     {
-      drop();
+      auto_drop();
     }
 
 
@@ -192,12 +192,18 @@ namespace sax
 
     virtual void drop (void) override
     {
-      if (state >> 4 == 2 || state == 0x10) return;
       if (!ok()) throw state;
 
       if (ok()) delete obj;
       state = 0x20;
       obj = nullptr;
+    }
+
+    virtual void auto_drop (void)
+    {
+      if (state >> 4 == 2 || state == 0x10) return;
+
+      drop();
     }
 
     
@@ -255,7 +261,7 @@ namespace sax
 
     ~Borrow (void)
     {
-      drop();
+      auto_drop();
     }
 
 
@@ -375,7 +381,6 @@ namespace sax
 
     void drop (void) override
     {
-      if (Wrapper<T>::state >> 4 == 2 || Wrapper<T>::state == 0x10) return;
       if (!Wrapper<T>::ok()) throw Wrapper<T>::state;
 
       w->obj = Wrapper<T>::obj;
@@ -383,6 +388,13 @@ namespace sax
       Wrapper<T>::state = 0x21;
       Wrapper<T>::obj = nullptr;
       w = nullptr;
+    }
+
+    void auto_drop (void) override
+    {
+      if (Wrapper<T>::state >> 4 == 2 || Wrapper<T>::state == 0x10) return;
+
+      drop();
     }
 
 
